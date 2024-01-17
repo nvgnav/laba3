@@ -1,17 +1,16 @@
 %{
 #include <stdio.h>
-#include "t3.tab.c"
-
+#include "y.tab.h"
 %}
 
 %option noyywrap
 
 %%
 
-[0-9]+(\.[0-9]+)? { yylval.number = atof(yytext); return NUMBER; } 
+[0-9]+ { yylval.number = atoi(yytext); return NUMBER; } 
 [-+*/(){}] { return yytext[0]; }
 "\n" { return END; }
-[ \t] { } /*игнорирует пробелы и символы табуляции*/
-. {printf("Mystery character %c\n", *yytext);} 
+[ \t] { } /* Игнорирует пробелы и символы табуляции */
+. { printf("Неопознанный символ %c\n", *yytext); } 
 %%
 
